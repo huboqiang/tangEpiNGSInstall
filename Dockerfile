@@ -100,6 +100,7 @@ RUN sed 's/\/data\/Analysis\/huboqiang\/software\/anaconda\/bin\/python/\/opt\/c
    sed 's/\/data\/Analysis\/huboqiang\/lib\/local_perl\/bin\/perl/\/usr\/bin\/perl/g' |\
    sed 's/\/data\/Analysis\/huboqiang\/software/\/software\/install_packages/g' |\
    sed 's/\/data\/Analysis\/huboqiang\/Database_RNA_v2/\/home\/analyzer\/database_RNA/g' |\
+   sed 's/bowtie2-2.1.0/bowtie2-2.2.3/g' |\
    sed 's/bedtools-2.17.0/bedtools2/g' |\
    sed 's/\/software\/install_packages\/anaconda\/lib\/python2.7/\/opt\/conda\/lib\/python2.7/g' |\
    sed 's/\/usr\/local\/bin/\/software\/install_packages\/tabix-0.2.6/g' |\
@@ -113,10 +114,13 @@ RUN sed 's/\/data\/Analysis\/huboqiang\/software\/anaconda\/bin\/python/\/opt\/c
   sed 's/\/data\/Analysis\/huboqiang\/software/\/software\/install_packages/g' |\
   sed 's/\/data\/Analysis\/huboqiang\/Database_ChIP_v2/\/home\/analyzer\/database_ChIP/g' |\
   sed 's/bedtools-2.17.0/bedtools2/g' |\
+  sed 's/MACS/MACS2-2.1.0.20150731/g' |\
   sed 's/\/software\/install_packages\/tabix/\/software\/install_packages\/tabix-0.2.6/g' |\
   sed 's/\/data\/Analysis\/huboqiang\/bin\/bwa/\/software\/install_packages\/bwa-0.7.5a\/bwa/g' |\
   sed 's/\/data\/Analysis\/huboqiang\/bin\/igvtools/\/software\/install_packages\/IGVTools\/igvtools/g' |\
   sed 's/\/data\/Analysis\/huboqiang\/project\/human_sc\/chIp_analysis\/bin/\/home\/analyzer\/project\/ChIP\/bin/g' |\
+  sed 's/\/software\/install_packages\/study_broadMacsScripts\/idrCode\/batch-consistency-analysis.r/\/software\/install_packages\/idrCode\/batch-consistency-analysis.r/g' |\
+  sed 's/\/home\/analyzer\/project\/ChIP\/bin/\/home\/analyzer\/module\/ChIP\/bin/g' |\
   sed 's/\/data\/Analysis\/huboqiang\/bin\/Rscript/\/software\/install_packages\/R-3.2.0\/bin\/Rscript/g' >tmp &&\
   mv tmp ./ChIP/settings/projpath.py
 #
