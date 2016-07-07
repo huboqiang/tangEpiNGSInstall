@@ -1,4 +1,4 @@
-FROM hubq/tangsftw
+FROM hubq/tanglabngssftw:latest
 
 RUN yum groupinstall -y 'Development Tools'
 
