@@ -84,14 +84,27 @@ RUN /software/install_packages/R-3.2.0/bin/Rscript -e "install.packages('snow')"
 RUN /software/install_packages/R-3.2.0/bin/R CMD INSTALL spp_rev/spp_1.10.1.tar.gz
 
 RUN adduser -g games analyzer
+RUN mkdir -p /home/analyzer/project
+RUN chown -R analyzer:games /home/analyzer/project
+
+RUN sed 's/source("functions-all-clayton-12-13.r")/source("\/software\/install_packages\/idrCode\/functions-all-clayton-12-13.r")/g' /software/install_packages/idrCode/batch-consistency-analysis.r | \
+sed 's/"genome_table.txt"/args[8]/g' >tmp && mv tmp /software/install_packages/idrCode/batch-consistency-analysis.r
+
 USER analyzer
+
+WORKDIR /home/analyzer/
+ADD ./src/run_sample.sh /home/analyzer/run_sample.sh
+
+
+#RUN adduser -g games analyzer
+#USER analyzer
 ENV PATH /opt/conda/bin:$PATH
 ENV PYTHONPATH /opt/conda/lib/python2.7/site-packages/:$PYTHONPATH
 WORKDIR /home/analyzer
 RUN git clone https://github.com/huboqiang/my_zsh
 RUN cp -r my_zsh/.oh-my-zsh ./  && cp -r my_zsh/.vim ./ && cp my_zsh/.vimrc ./ && cp my_zsh/.zshrc ./ && cp my_zsh/rmate ./
-
-
+#
+#
 RUN mkdir -p /home/analyzer/project /home/analyzer/module /home/analyzer/database_RNA /home/analyzer/database_ChIP
 WORKDIR /home/analyzer/module
 ENV PYTHONPATH /home/analyzer/module/:$PYTHONPATH
@@ -106,7 +119,7 @@ RUN sed 's/\/data\/Analysis\/huboqiang\/software\/anaconda\/bin\/python/\/opt\/c
    sed 's/\/usr\/local\/bin/\/software\/install_packages\/tabix-0.2.6/g' |\
    sed 's/Bowtie\///g'>tmp &&\
    mv tmp ./RNA_v2/settings/projpath.py
-
+#
 
 RUN git clone https://github.com/huboqiang/ChIP
 RUN sed 's/\/data\/Analysis\/huboqiang\/software\/anaconda\/bin\/python/\/opt\/conda\/bin\/python/g' ./ChIP/settings/projpath.py |\
@@ -123,5 +136,19 @@ RUN sed 's/\/data\/Analysis\/huboqiang\/software\/anaconda\/bin\/python/\/opt\/c
   sed 's/\/home\/analyzer\/project\/ChIP\/bin/\/home\/analyzer\/module\/ChIP\/bin/g' |\
   sed 's/\/data\/Analysis\/huboqiang\/bin\/Rscript/\/software\/install_packages\/R-3.2.0\/bin\/Rscript/g' >tmp &&\
   mv tmp ./ChIP/settings/projpath.py
-#
+
+RUN mkdir /home/analyzer/bin
+RUN cp /software/install_packages/R-3.2.0/bin/Rscript /home/analyzer/bin && \
+    cp /software/install_packages/picard-tools-1.119/MarkDuplicates.jar /home/analyzer/bin && \
+    cp /software/install_packages/bwa-0.7.5a/bwa /home/analyzer/bin && \
+    cp /software/install_packages/samtools-0.1.18/samtools /home/analyzer/bin && \
+    cp /software/install_packages/MACS2-2.1.0.20150731/bin/macs2 /home/analyzer/bin && \
+    cp /software/install_packages/bedtools2/bin/bedtools /home/analyzer/bin && \
+    cp /software/install_packages/tabix-0.2.6/bgzip /home/analyzer/bin && \
+    cp /software/install_packages/tabix-0.2.6/tabix /home/analyzer/bin
+
+ENV PATH /home/analyzer/bin:$PATH
+
 WORKDIR /home/analyzer/project
+
+CMD ["sh", "/home/analyzer/run_sample.sh"]
