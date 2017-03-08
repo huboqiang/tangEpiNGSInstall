@@ -144,7 +144,7 @@ RUN cp /software/install_packages/R-3.2.0/bin/Rscript /home/analyzer/bin && \
     cp /software/install_packages/samtools-0.1.18/samtools /home/analyzer/bin && \
     cp /software/install_packages/MACS2-2.1.0.20150731/bin/macs2 /home/analyzer/bin && \
     cp /software/install_packages/bedtools2/bin/bedtools /home/analyzer/bin && \
-    cp /software/install_packages/tabix-0.2.6/bgzip /home/analyzer/bin && \
+    cp /software/install_packages/tabix-0.2.6/tabix /home/analyzer/bin && \
 	cp /software/install_packages/tabix-0.2.6/bgzip /home/analyzer/bin && \
     cp /software/install_packages/bowtie2-2.2.3/bowtie2* /home/analyzer/bin
 
