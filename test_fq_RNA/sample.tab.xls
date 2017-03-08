@@ -1,0 +1,2 @@
+sample	brief_name	stage	sample_group	ERCC_time	RFP_polyA	GFP_polyA	CRE_polyA	end_type	rename
+SampleA1	A1	Group1	RNA	0.0	0.0	0.0	0.0	PE	A1
