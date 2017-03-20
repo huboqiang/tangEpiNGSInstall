@@ -63,7 +63,7 @@ WORKDIR /software/install_packages/
 # pip install
 RUN pip install pysam==0.8.3 pybedtools==0.6.9
 RUN pip install -d . ngslib
-RUN pip install HTSeq brewer2mpl svgwrite seaborn  sklearn
+RUN pip install HTSeq==0.6.0 brewer2mpl svgwrite seaborn  sklearn
 RUN conda install mysql-python
 #
 # jupyter
