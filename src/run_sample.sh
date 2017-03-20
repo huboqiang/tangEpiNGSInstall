@@ -16,11 +16,12 @@ then
     done
     cd /home/analyzer/project/ChIP_test
     
+    cp /settings/run_chipseq.sh     /home/analyzer/module/ChIP/
     cp /settings/run_chipseq.py     /home/analyzer/module/ChIP/
     cp /settings/scripts_chipseq.py /home/analyzer/module/ChIP/settings/scripts.py
     
     cp /fastq/sample.tab.xls ./
-    python /home/analyzer/module/ChIP/run_chipseq.py --ref ${ref} sample.tab.xls
+    sh /home/analyzer/module/ChIP/run_chipseq.sh ${ref}
     
     mkdir -p result result/peaks result/bigwig result/tables
     cp 03.2.Peak_mrg/*/*_treat_minus_control.sort.norm.bw result/bigwig
@@ -36,13 +37,14 @@ then
       ln -s /fastq/$i/* /home/analyzer/project/RNA_test/00.0.raw_data/$i
     done
     cd /home/analyzer/project/RNA_test
-    ls /home/analyzer/bin
     
+    cp /settings/run_mRNA.sh     /home/analyzer/module/RNA_v2/
     cp /settings/run_mRNA.py     /home/analyzer/module/RNA_v2/
     cp /settings/scripts_mRNA.py /home/analyzer/module/RNA_v2/settings/scripts.py
     
     cp /fastq/sample.tab.xls ./
-    python /home/analyzer/module/RNA_v2/run_mRNA.py --ref ${ref} --given_GTF /home/analyzer/database_RNA/mm10/refGene.gtf sample.tab.xls
+    sh /home/analyzer/module/RNA_v2/run_mRNA.sh ${ref}
+
     mkdir -p result result/count result/fpkm result/repeat result/table
     cp 02.HTSeq_result/*                             result/count
     cp 05.2.cufflinksMerge_known/merge.FPKM.gene.xls result/fpkm
